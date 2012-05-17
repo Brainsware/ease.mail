@@ -6,7 +6,7 @@ PASSWORD = 'test'
 MAILSERVER = 'https://your.mailserver.com'
 
 # Set up a client for given mailserver
-client = Zimbra::Client.new MAILSERVER, :no_verify
+client = Zimbra::Client.new MAILSERVER
 
 # Authenticate with given username & password
 client.authorize(USERNAME, PASSWORD)
