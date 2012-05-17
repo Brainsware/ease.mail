@@ -1,7 +1,9 @@
 *.gem
 *.rbc
+*.swp
 .bundle
 .config
+tags
 coverage
 InstalledFiles
 lib/bundler/man
