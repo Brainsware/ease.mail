@@ -46,8 +46,10 @@ module Zimbra
 			e.to_s
 		end
 
-		def method_missing (name, *args, &block)
-			
+		def method_missing (method_name, *args, &block)
+			return super method_name, *args, &block unless REQUESTS.include?(method_name)
+
+			request(method_name.to_sym, *args, &block)
 		end
 
 		def request (type, options = {}, &block)

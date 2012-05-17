@@ -12,7 +12,7 @@ client = Zimbra::Client.new MAILSERVER
 client.authorize(USERNAME, PASSWORD)
 
 # Search for mails (returning default response here)
-response = client.request :search
+response = client.search :type => 'contact', :limit => 1, :offset => 30
 
 # Print returned mails
 puts response.inspect
