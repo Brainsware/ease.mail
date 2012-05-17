@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'savon'
 
 module Zimbra
@@ -15,6 +14,11 @@ module Zimbra
 	REQUESTS = {
 		:auth   => 'AuthRequest',
 		:search => 'SearchRequest'
+	}
+
+	NS_FOR_REQUEST = {
+		:auth   => NS[:account],
+		:search => NS[:mail]
 	}
 
 	class Client
@@ -42,7 +46,13 @@ module Zimbra
 			e.to_s
 		end
 
-		def request (type, options, &block)
+		def method_missing (name, *args, &block)
+			
+		end
+
+		def request (type, options = {}, &block)
+			options[:xmlns] = NS_FOR_REQUEST[type] unless options.include?(:xmlns)
+
 			response = @client.request REQUESTS[type], options do |soap|
 				unless @auth_token.nil?
 					soap.header = {

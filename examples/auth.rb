@@ -12,7 +12,7 @@ client = Zimbra::Client.new MAILSERVER, :no_verify
 client.authorize(USERNAME, PASSWORD)
 
 # Search for mails (returning default response here)
-response = client.request :search, :xmlns => Zimbra::NS[:mail]
+response = client.request :search
 
 # Print returned mails
 puts response.inspect
