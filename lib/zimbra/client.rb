@@ -22,10 +22,19 @@ module Zimbra
 	}
 
 	class Client
-		def initialize (server, verify_certificate = true)
+		def initialize (options)
+			raise 'No Server supplied' unless options.include?(:server)
+
+			server = options[:server]
+			options[:verify_certificate] ||= true
+
+			# Check whether auth_token is already present
+			@auth_token = options[:auth_token] if options.include?(:auth_token)
+
 			# Remove trailing '/' from server string if given
 			server.gsub!(/\/$/, '')
 
+			# Create and initialize Savon client
 			@client = Savon::Client.new do |wsdl, http|
 				wsdl.namespace = ENVELOPE_NAMESPACE
 				wsdl.endpoint  = server + SERVICE_PATH
@@ -41,6 +50,7 @@ module Zimbra
 			end
 
 			@auth_token = response[:auth_response][:auth_token]
+			@auth_token
 
 		rescue Savon::SOAP::Fault => e
 			e.to_s
