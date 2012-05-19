@@ -7,6 +7,7 @@ a) a Ruby client for Zimbra's SOAP API
 b) a RESTful API service for clients to interact with Zimbra
 
 Sporting a Rack/Grape service, you can now read email from your shell of choice:
+(Note: be sure to change the api.rb's SERVER constant to your.rack.server.org beforehand)
 
     curl -X POST http://your.rack.server.org/0.1/authenticate.json -d'username=...' -d'password=****'
 
